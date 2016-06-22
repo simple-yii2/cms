@@ -1,0 +1,24 @@
+{
+    "name": "simple-yii2/cms",
+    "description": "Main menu module for Yii PHP Framework Version 2",
+    "type": "yii2-module",
+    "keywords": ["yii2","module","cms"],
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Dmitry Khlystov",
+            "email": "dkhlystov@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*",
+        "simple-yii2/mainmenu": "*",
+        "simple-yii2/page": "*",
+        "simple-yii2/user": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "cms\\": ""
+        }
+    }
+}
