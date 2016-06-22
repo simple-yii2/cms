@@ -12,9 +12,9 @@
     ],
     "require": {
         "yiisoft/yii2": "*",
-        "simple-yii2/menu": "dev-master",
-        "simple-yii2/page": "dev-master",
-        "simple-yii2/user": "dev-master"
+        "simple-yii2/menu": "*",
+        "simple-yii2/page": "*",
+        "simple-yii2/user": "*"
     },
     "autoload": {
         "psr-4": {
