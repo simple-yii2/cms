@@ -10,7 +10,6 @@
             "email": "dkhlystov@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
     "require": {
         "yiisoft/yii2": "*",
         "simple-yii2/menu": "*",
