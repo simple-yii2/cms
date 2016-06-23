@@ -3,6 +3,7 @@
 namespace cms;
 
 use Yii;
+use yii\base\InvalidConfigException;
 
 /**
  * Simple CMS main module
@@ -23,6 +24,7 @@ class Module extends \yii\base\Module
 		parent::init();
 
 		$this->checkModules();
+		$this->makeMenu();
 
 		//user
 		$user = Yii::$app->getUser();
@@ -33,24 +35,50 @@ class Module extends \yii\base\Module
 	}
 
 	/**
-	 * Check modules, that may be used in CMS and building main menu.
+	 * Check modules, that may be used in CMS.
 	 * @return void
 	 */
 	protected function checkModules()
 	{
+		//add existing modules
+
 		$modules = [];
+
+		foreach (require(__DIR__ . '/config/modules.php') as $name => $module) {
+			if (class_exists($module))
+				$modules[$name] = $module;
+		}
+
+		$this->modules = $modules;
+
+		//init user module
+
+		if ($this->getModule('user') === null)
+			throw new InvalidConfigException('Module `user` not found.');
+	}
+
+	/**
+	 * Building main menu.
+	 * @return void
+	 */
+	protected function makeMenu()
+	{
 		$menu = [];
 
 		$base = '/' . $this->id;
 
-		foreach (require(__DIR__ . '/config/modules.php') as $name => $module) {
-			if (class_exists($module)) {
-				$modules[$name] = $module;
-				if (method_exists($module, 'getMenu'))
-					$menu = array_merge($menu, $module::getMenu($base));
+		foreach ($this->modules as $module) {
+			$class = '';
+			if (is_string($module)) {
+				$class = $module;
+			} elseif (is_array($module)) {
+				$class = $module['class'];
+			} elseif ($module instanceof \yii\base\Module) {
+				$class = $module::className();
 			}
+			if (!empty($class) && method_exists($class, 'getMenu'))
+				$menu = array_merge($menu, $class::getMenu($base));
 		}
-
 
 		if (!Yii::$app->user->isGuest) {
 			$menu[] = [
@@ -59,7 +87,6 @@ class Module extends \yii\base\Module
 			];
 		}
 
-		$this->modules = $modules;
 		Yii::$app->params['menu'] = $menu;
 	}
 
