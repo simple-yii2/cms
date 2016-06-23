@@ -23,6 +23,13 @@ class Module extends \yii\base\Module
 		parent::init();
 
 		$this->checkModules();
+
+		//user
+		$user = Yii::$app->getUser();
+		$user->loginUrl = ['/' . $this->id . '/user/login/index'];
+
+		//error
+		Yii::$app->errorHandler->errorAction = '/' . $this->id . '/default/error';
 	}
 
 	/**
