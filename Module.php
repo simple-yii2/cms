@@ -51,10 +51,18 @@ class Module extends \yii\base\Module
 
 		$this->modules = $modules;
 
+
 		//init user module
 
 		if ($this->getModule('user') === null)
 			throw new InvalidConfigException('Module `user` not found.');
+
+
+		//init other modules to prepare data
+
+		foreach (array_keys($modules) as $name) {
+			$this->getModule($name);
+		}
 	}
 
 	/**
