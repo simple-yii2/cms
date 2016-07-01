@@ -23,6 +23,9 @@ class Module extends \yii\base\Module
 	{
 		parent::init();
 
+		Yii::$app->name = 'simple-yii/cms';
+		Yii::$app->homeUrl = ['/' . $this->id . '/default/index'];
+
 		$this->checkModules();
 		$this->makeMenu();
 
@@ -40,7 +43,7 @@ class Module extends \yii\base\Module
 	 */
 	protected function checkModules()
 	{
-		//add existing modules
+		//add exists modules
 
 		$modules = [];
 
