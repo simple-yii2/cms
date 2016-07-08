@@ -18,7 +18,7 @@ class DefaultController extends Controller
 				'class' => AccessControl::className(),
 				'rules' => [
 					[
-						'actions' => ['index'],
+						'actions' => ['index', 'error'],
 						'allow' => true,
 						'roles' => ['@'],
 					],
