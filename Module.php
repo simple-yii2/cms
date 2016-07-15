@@ -93,7 +93,7 @@ class Module extends \yii\base\Module
 
 		if (!Yii::$app->user->isGuest) {
 			$menu[] = [
-				'label' => Yii::t('user', 'Logout') . '(' . Yii::$app->user->identity->username . ')',
+				'label' => Yii::t('user', 'Logout') . ' (' . Yii::$app->user->identity->username . ')',
 				'url' => ["$base/user/logout/index"],
 			];
 		}
