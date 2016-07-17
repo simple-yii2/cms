@@ -5,3 +5,14 @@
 .nav-tabs {
 	margin-bottom: 20px;
 }
+
+.form-group.required > label {
+	position: relative;
+}
+.form-group.required > label.control-label:after {
+	color: #a94442;
+	content: '*';
+	display: inline-block;
+	margin-right: -10px;
+	width: 10px;
+}
