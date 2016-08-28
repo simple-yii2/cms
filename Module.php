@@ -23,6 +23,8 @@ class Module extends \yii\base\Module
 	{
 		parent::init();
 
+		self::addTranslation();
+
 		Yii::$app->name = 'simple-yii/cms';
 		Yii::$app->homeUrl = ['/' . $this->id . '/default/index'];
 
@@ -99,6 +101,21 @@ class Module extends \yii\base\Module
 		}
 
 		Yii::$app->params['menu'] = $menu;
+	}
+
+	/**
+	 * Adding translation to i18n
+	 * @return void
+	 */
+	protected static function addTranslation()
+	{
+		if (!isset(Yii::$app->i18n->translations['cms'])) {
+			Yii::$app->i18n->translations['cms'] = [
+				'class' => 'yii\i18n\PhpMessageSource',
+				'sourceLanguage' => 'en-US',
+				'basePath' => __DIR__ . '/messages',
+			];
+		}
 	}
 
 }
