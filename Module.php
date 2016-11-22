@@ -28,6 +28,8 @@ class Module extends \yii\base\Module
 		Yii::$app->name = 'simple-yii/cms';
 		Yii::$app->homeUrl = ['/' . $this->id . '/default/index'];
 
+		Yii::$app->assetManager->bundles['yii\bootstrap\BootstrapAsset']['sourcePath'] = '@bower/bootstrap/dist';
+
 		$this->checkModules();
 		$this->makeMenu();
 
