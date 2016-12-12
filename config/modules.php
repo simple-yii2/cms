@@ -6,6 +6,7 @@ return [
 	'blocks' => 'simple\blocks\backend\Module',
 	'gallery' => 'gallery\backend\Module',
 	'slider' => 'slider\backend\Module',
+	'contacts' => 'simple\contacts\backend\Module',
 	'seo' => 'seo\backend\Module',
 	'user' => 'user\backend\Module',
 ];
