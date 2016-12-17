@@ -1,6 +1,6 @@
 {
     "name": "simple-yii2/cms",
-    "description": "Main menu module for Yii PHP Framework Version 2",
+    "description": "Content management system for Yii 2 framework",
     "type": "yii2-module",
     "keywords": ["yii2","module","cms"],
     "license": "BSD-3-Clause",
@@ -12,8 +12,6 @@
     ],
     "require": {
         "yiisoft/yii2": "*",
-        "simple-yii2/menu": "*",
-        "simple-yii2/page": "*",
         "simple-yii2/user": "*"
     },
     "autoload": {
