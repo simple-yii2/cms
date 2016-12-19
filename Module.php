@@ -78,10 +78,11 @@ class Module extends \yii\base\Module
 	 */
 	protected function makeMenu()
 	{
-		$menu = [];
 
 		$base = '/' . $this->id;
 
+		//modules
+		$items = [];
 		foreach ($this->modules as $module) {
 			$class = '';
 			if (is_string($module)) {
@@ -92,17 +93,32 @@ class Module extends \yii\base\Module
 				$class = $module::className();
 			}
 			if (!empty($class) && method_exists($class, 'getMenu'))
-				$menu = array_merge($menu, $class::getMenu($base));
+				$items = array_merge($items, $class::getMenu($base));
 		}
 
+		$modulesMenu = [];
+		if (!empty($items)) {
+			$modulesMenu = [
+				[
+					'label' => Yii::t('cms', 'Modules'),
+					'items' => $items,
+				],
+			];
+		}
+
+		//security
+		$securityMenu = $this->getModule('user')->getUserMenu($base);
+
+		//logout
+		$logoutMenu = [];
 		if (!Yii::$app->user->isGuest) {
-			$menu[] = [
+			$logoutMenu[] = [
 				'label' => Yii::t('user', 'Logout') . ' (' . Yii::$app->user->identity->username . ')',
 				'url' => ["$base/user/logout/index"],
 			];
 		}
-
-		Yii::$app->params['menu'] = $menu;
+\
+		Yii::$app->params['menu'] = array_merge($modulesMenu, $securityMenu, $logoutMenu);
 	}
 
 	/**
