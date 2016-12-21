@@ -30,6 +30,9 @@ class Module extends \yii\base\Module
 
 		Yii::$app->assetManager->bundles['yii\bootstrap\BootstrapAsset']['sourcePath'] = '@bower/bootstrap/dist';
 
+		if (($view = Yii::$app->view) instanceof \cms\seo\frontend\components\View)
+			$view->seoEnabled = false;
+
 		$this->checkModules();
 		$this->makeMenu();
 

@@ -7,7 +7,7 @@ return [
 	'gallery' => 'gallery\backend\Module',
 	'slider' => 'slider\backend\Module',
 	'contacts' => 'simple\contacts\backend\Module',
-	'seo' => 'seo\backend\Module',
+	'seo' => 'cms\seo\backend\Module',
 
 	'user' => 'cms\user\backend\Module',
 ];
