@@ -25,7 +25,7 @@ class Module extends \yii\base\Module
 
 		self::addTranslation();
 
-		Yii::$app->name = 'simple-yii/cms';
+		Yii::$app->name = 'simple-yii2/cms';
 		Yii::$app->homeUrl = ['/' . $this->id . '/default/index'];
 
 		Yii::$app->assetManager->bundles['yii\bootstrap\BootstrapAsset']['sourcePath'] = '@bower/bootstrap/dist';
