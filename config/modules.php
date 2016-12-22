@@ -8,6 +8,7 @@ return [
 	'slider' => 'slider\backend\Module',
 	'contacts' => 'simple\contacts\backend\Module',
 	'seo' => 'cms\seo\backend\Module',
+	'settings' => 'cms\settings\backend\Module',
 
 	'user' => 'cms\user\backend\Module',
 ];
