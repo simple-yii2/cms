@@ -2,7 +2,7 @@
 
 return [
 	'menu' => 'cms\menu\backend\Module',
-	'page' => 'page\backend\Module',
+	'page' => 'cms\page\backend\Module',
 	'block' => 'cms\block\backend\Module',
 	'gallery' => 'gallery\backend\Module',
 	'slider' => 'slider\backend\Module',
