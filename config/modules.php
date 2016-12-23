@@ -6,7 +6,7 @@ return [
 	'block' => 'cms\block\backend\Module',
 	'gallery' => 'gallery\backend\Module',
 	'slider' => 'slider\backend\Module',
-	'contacts' => 'simple\contacts\backend\Module',
+	'contact' => 'cms\contact\backend\Module',
 	'seo' => 'cms\seo\backend\Module',
 	'settings' => 'cms\settings\backend\Module',
 
