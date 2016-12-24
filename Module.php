@@ -38,7 +38,7 @@ class Module extends \yii\base\Module
 
 		//user
 		$user = Yii::$app->getUser();
-		$user->loginUrl = ['/' . $this->id . '/users/login/index'];
+		$user->loginUrl = ['/' . $this->id . '/user/login/index'];
 
 		//error
 		Yii::$app->errorHandler->errorAction = '/' . $this->id . '/default/error';
@@ -62,10 +62,10 @@ class Module extends \yii\base\Module
 		$this->modules = $modules;
 
 
-		//init users module
+		//init user module
 
-		if ($this->getModule('users') === null)
-			throw new InvalidConfigException('Module `users` not found.');
+		if ($this->getModule('user') === null)
+			throw new InvalidConfigException('Module `user` not found.');
 
 
 		//init other modules to prepare data
@@ -110,14 +110,14 @@ class Module extends \yii\base\Module
 		}
 
 		//security
-		$securityMenu = $this->getModule('users')->getUserMenu($base);
+		$securityMenu = $this->getModule('user')->getUserMenu($base);
 
 		//logout
 		$logoutMenu = [];
 		if (!Yii::$app->user->isGuest) {
 			$logoutMenu[] = [
 				'label' => Yii::t('user', 'Logout') . ' (' . Yii::$app->user->identity->username . ')',
-				'url' => ["$base/users/logout/index"],
+				'url' => ["$base/user/logout/index"],
 			];
 		}
 \
