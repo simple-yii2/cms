@@ -95,8 +95,13 @@ class Module extends \yii\base\Module
 			} elseif ($module instanceof \yii\base\Module) {
 				$class = $module::className();
 			}
-			if (!empty($class) && method_exists($class, 'getMenu'))
+			if (!empty($class) && method_exists($class, 'getMenu')) {
+				$moduleItems = $class::getMenu($base);
+				if (!empty($items) && !empty($moduleItems))
+					$items[] = '<li role="separator" class="divider"></li>';
+
 				$items = array_merge($items, $class::getMenu($base));
+			}
 		}
 
 		$modulesMenu = [];
