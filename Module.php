@@ -95,14 +95,16 @@ class Module extends \yii\base\Module
 			} elseif ($module instanceof \yii\base\Module) {
 				$class = $module::className();
 			}
-			if (!empty($class) && method_exists($class, 'getMenu')) {
-				$moduleItems = $class::getMenu($base);
-				if (!empty($items) && !empty($moduleItems))
-					$items[] = '<li role="separator" class="divider"></li>';
-
+			if (!empty($class) && method_exists($class, 'getMenu'))
 				$items = array_merge($items, $class::getMenu($base));
-			}
 		}
+
+		//separators
+		$i = sizeof($items) - 1;
+		if (is_string($items[$i]))
+			unset($items[$i]);
+		if (is_string($items[0]))
+			unset($items[0]);
 
 		$modulesMenu = [];
 		if (!empty($items)) {
