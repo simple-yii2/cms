@@ -9,7 +9,7 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 
 use cms\assets\AppAsset;
-use cms\widgets\Alert;
+use dkhlystov\widgets\Alert;
 
 AppAsset::register($this);
 

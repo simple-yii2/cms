@@ -12,6 +12,7 @@
     ],
     "require": {
         "yiisoft/yii2": "*",
+        "dkhlystov/yii2-alert": "*",
         "simple-yii2/user": "*"
     },
     "autoload": {
