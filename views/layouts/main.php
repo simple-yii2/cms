@@ -11,7 +11,7 @@ use yii\widgets\Breadcrumbs;
 use cms\assets\AppAsset;
 use dkhlystov\widgets\Alert;
 
-AppAsset::register($this);
+$asset = AppAsset::register($this);
 
 ?>
 <?php $this->beginPage() ?>
@@ -22,6 +22,7 @@ AppAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
+    <link rel="shortcut icon" href="<?= $asset->baseUrl ?>/logo.png" type="image/png">
     <?php $this->head() ?>
 </head>
 <body>
