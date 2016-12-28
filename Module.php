@@ -100,11 +100,13 @@ class Module extends \yii\base\Module
 		}
 
 		//separators
-		$i = sizeof($items) - 1;
-		if (is_string($items[$i]))
-			unset($items[$i]);
-		if (is_string($items[0]))
-			unset($items[0]);
+		if (!empty($items)) {
+			$i = sizeof($items) - 1;
+			if (is_string($items[$i]))
+				unset($items[$i]);
+			if (is_string($items[0]))
+				unset($items[0]);
+		}
 
 		$modulesMenu = [];
 		if (!empty($items)) {
