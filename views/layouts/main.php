@@ -4,10 +4,10 @@
 /* @var $content string */
 
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 
+use kartik\nav\NavX;
 use cms\assets\AppAsset;
 use dkhlystov\widgets\Alert;
 
@@ -37,7 +37,7 @@ $asset = AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    echo Nav::widget([
+    echo NavX::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => Yii::$app->params['menu'],
     ]);

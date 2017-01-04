@@ -7,8 +7,6 @@ use yii\web\AssetBundle;
 class AppAsset extends AssetBundle
 {
 
-    public $sourcePath = __DIR__ . '/app';
-
     public $css = [
         'site.css',
         'controls.css',
@@ -17,6 +15,12 @@ class AppAsset extends AssetBundle
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
+        'kartik\dropdown\DropdownXAsset',
     ];
+
+    public function init()
+    {
+    	$this->sourcePath = __DIR__ . '/app';
+    }
 
 }

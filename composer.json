@@ -12,6 +12,7 @@
     ],
     "require": {
         "yiisoft/yii2": "*",
+        "kartik-v/yii2-nav-x": "*",
         "dkhlystov/yii2-alert": "*",
         "simple-yii2/user": "*"
     },
