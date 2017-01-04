@@ -38,8 +38,12 @@ $asset = AppAsset::register($this);
         ],
     ]);
     echo NavX::widget([
+        'options' => ['class' => 'navbar-nav'],
+        'items' => Yii::$app->params['menu-modules'],
+    ]);
+    echo NavX::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => Yii::$app->params['menu'],
+        'items' => Yii::$app->params['menu-user'],
     ]);
     NavBar::end();
     ?>

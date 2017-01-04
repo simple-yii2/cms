@@ -130,7 +130,8 @@ class Module extends \yii\base\Module
 			];
 		}
 \
-		Yii::$app->params['menu'] = array_merge($modulesMenu, $securityMenu, $logoutMenu);
+		Yii::$app->params['menu-modules'] = array_merge($modulesMenu, $securityMenu);
+		Yii::$app->params['menu-user'] = $logoutMenu;
 	}
 
 	/**
