@@ -39,9 +39,14 @@ class Module extends \yii\base\Module
 		//user
 		$user = Yii::$app->getUser();
 		$user->loginUrl = ['/' . $this->id . '/user/login/index'];
+		$user->passwordChangeUrl = ['' . $this->id . '/user/password/index'];
 
 		//error
 		Yii::$app->errorHandler->errorAction = '/' . $this->id . '/default/error';
+
+		//check password change
+		if (!$user->getIsGuest() && $user->getIdentity()->passwordChange)
+			$user->passwordChangeRequired();
 	}
 
 	/**
@@ -85,7 +90,9 @@ class Module extends \yii\base\Module
 		$base = '/' . $this->id;
 
 		//modules
-		$items = [];
+		$items = ['<li role="separator" class="divider"></li>', '<li role="separator" class="divider"></li>', '<li role="separator" class="divider"></li>'];
+		$securityItems = [];
+		$catalogItems = [];
 		foreach ($this->modules as $module) {
 			$class = '';
 			if (is_string($module)) {
@@ -95,17 +102,39 @@ class Module extends \yii\base\Module
 			} elseif ($module instanceof \yii\base\Module) {
 				$class = $module::className();
 			}
-			if (!empty($class) && method_exists($class, 'getMenu'))
-				$items = array_merge($items, $class::getMenu($base));
+			if (!empty($class) && method_exists($class, 'getMenu')) {
+				switch ($class) {
+					case 'cms\user\backend\Module':
+						$securityItems = $class::getMenu($base);
+						break;
+					case 'cms\catalog\backend\Module':
+						$catalogItems = $class::getMenu($base);
+						break;
+					default:
+						$items = array_merge($items, $class::getMenu($base));
+						break;
+				}
+			}
 		}
+		$items[] = '<li role="separator" class="divider"></li>';
+		$items[] = '<li role="separator" class="divider"></li>';
+		$items[] = '<li role="separator" class="divider"></li>';
 
 		//separators
+		$isPrev = true;
+		foreach ($items as $key => $value) {
+			if (is_string($value)) {
+				if ($isPrev)
+					unset($items[$key]);
+				$isPrev = true;
+			} else {
+				$isPrev = false;
+			}
+		}
 		if (!empty($items)) {
-			$i = sizeof($items) - 1;
-			if (is_string($items[$i]))
-				unset($items[$i]);
-			if (is_string($items[0]))
-				unset($items[0]);
+			$key = end((array_keys($items)));
+			if (is_string($items[$key]))
+				unset($items[$key]);
 		}
 
 		$modulesMenu = [];
@@ -118,20 +147,8 @@ class Module extends \yii\base\Module
 			];
 		}
 
-		//security
-		$securityMenu = $this->getModule('user')->getUserMenu($base);
-
-		//logout
-		$logoutMenu = [];
-		if (!Yii::$app->user->isGuest) {
-			$logoutMenu[] = [
-				'label' => Yii::t('user', 'Logout') . ' (' . Yii::$app->user->identity->username . ')',
-				'url' => ["$base/user/logout/index"],
-			];
-		}
-\
-		Yii::$app->params['menu-modules'] = array_merge($modulesMenu, $securityMenu);
-		Yii::$app->params['menu-user'] = $logoutMenu;
+		Yii::$app->params['menu-modules'] = array_merge($modulesMenu, $catalogItems, $securityItems);
+		Yii::$app->params['menu-user'] = $this->getModule('user')->getUserMenu($base);
 	}
 
 	/**
