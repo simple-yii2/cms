@@ -15,7 +15,6 @@ class AppAsset extends AssetBundle
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
-        'kartik\dropdown\DropdownXAsset',
     ];
 
     public function init()
