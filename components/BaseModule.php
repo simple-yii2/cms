@@ -51,7 +51,7 @@ class BaseModule extends Module
 	 * 
 	 * @return void
 	 */
-	protected static function cmsTranslation()
+	public static function cmsTranslation()
 	{
 		$name = static::moduleName();
 		if (empty($name))
