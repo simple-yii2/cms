@@ -3,6 +3,7 @@
 namespace cms\components;
 
 use Yii;
+use yii\base\InvalidConfigException;
 use yii\base\Module;
 
 /**
@@ -14,17 +15,12 @@ class BaseModule extends Module
 {
 
 	/**
-	 * @var string Class dirname
-	 */
-	private static $_dirname;
-
-	/**
 	 * Return module name that uses for translation adding
 	 * @return string
 	 */
 	public static function moduleName()
 	{
-		return '';
+		throw new InvalidConfigException('The function "moduleName" is not defined in "' . static::className() . '".');
 	}
 
 	/**
@@ -43,11 +39,8 @@ class BaseModule extends Module
 	 */
 	protected static function getDirname()
 	{
-		if (self::$_dirname !== null)
-			return self::$_dirname;
-
-		$class = new \ReflectionClass(self::className());
-		return self::$_dirname = dirname(dirname($class->getFileName()));
+		$class = new \ReflectionClass(static::className());
+		return dirname(dirname($class->getFileName()));
 	}
 
 	/**
