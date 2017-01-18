@@ -19,6 +19,11 @@ class Module extends BackendModule
 	public $layout = 'main';
 
 	/**
+	 * @var integer|null max page count. If set to null, there are no limit to count of pages. 
+	 */
+	public $maxPageCount;
+
+	/**
 	 * @inheritdoc
 	 */
 	public static function moduleName()
@@ -86,6 +91,16 @@ class Module extends BackendModule
 			if (class_exists($module))
 				$modules[$name] = $module;
 		}
+
+		//page count limit
+		if (array_key_exists('page', $modules)) {
+			$modules['page'] = [
+				'class' => $modules['page'],
+				'maxCount' => $this->maxPageCount,
+			];
+		}
+
+		//apply
 		$this->modules = $modules;
 
 		//init user module
