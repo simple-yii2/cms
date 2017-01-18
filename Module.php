@@ -120,8 +120,8 @@ class Module extends BackendModule
 	private function checkPasswordChange()
 	{
 		$user = Yii::$app->getUser();
-		if (!$user->getIsGuest() && $user->getIdentity()->passwordChange)
-			$user->passwordChangeRequired();
+		if (!$user->getIsGuest() && $user->getIdentity()->passwordChange && $user->passwordChangeRequired())
+			Yii::$app->end();
 	}
 
 	/**
