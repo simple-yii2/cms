@@ -13,7 +13,7 @@
     "require": {
         "yiisoft/yii2": "*",
         "dkhlystov/yii2-alert": "*",
-        "simple-yii2/user": "*"
+        "simple-yii2/user": "1.0.*"
     },
     "autoload": {
         "psr-4": {

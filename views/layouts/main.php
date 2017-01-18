@@ -39,7 +39,7 @@ $asset = AppAsset::register($this);
     ]);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],
-        'items' => Yii::$app->params['menu-modules'],
+        'items' => Yii::$app->params['menu'],
     ]);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
