@@ -24,6 +24,11 @@ class Module extends BackendModule
 	public $maxPageCount;
 
 	/**
+	 * @var array custom cms (backend) modules config.
+	 */
+	public $customModules = [];
+
+	/**
 	 * @inheritdoc
 	 */
 	public static function moduleName()
@@ -91,6 +96,9 @@ class Module extends BackendModule
 			if (class_exists($module))
 				$modules[$name] = $module;
 		}
+
+		//add custom modules
+		$modules = array_merge($modules, $this->customModules);
 
 		//page count limit
 		if (array_key_exists('page', $modules)) {
