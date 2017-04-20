@@ -12,6 +12,7 @@ return [
 	'block' => 'cms\block\backend\Module',
 	'slider' => 'cms\slider\backend\Module',
 	'seo' => 'cms\seo\backend\Module',
+	'payment' => 'cms\payment\backend\Module',
 	'settings' => 'cms\settings\backend\Module',
 	'sitemap' => 'cms\sitemap\backend\Module',
 
