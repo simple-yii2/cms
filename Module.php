@@ -149,7 +149,7 @@ class Module extends BackendModule
 		$items = [];
 		foreach ($this->modules as $module) {
 			if ($module instanceof \cms\catalog\backend\Module) {
-				// $catalogItems = $module::cmsMenu($base);
+				$catalogItems = $module::cmsMenu($base);
 			} elseif ($module instanceof \cms\payment\backend\Module) {
 				$paymentItems = $module::cmsMenu($base);
 			} elseif ($module instanceof \cms\user\backend\Module) {
