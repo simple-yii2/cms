@@ -4,6 +4,7 @@ namespace cms;
 
 use Yii;
 use yii\base\InvalidConfigException;
+use yii\helpers\ArrayHelper;
 
 use cms\components\BackendModule;
 
@@ -19,9 +20,9 @@ class Module extends BackendModule
 	public $layout = 'main';
 
 	/**
-	 * @var integer|null max page count. If set to null, there are no limit to count of pages. 
+	 * @var array Config that appling to backend modules
 	 */
-	public $maxPageCount;
+	public $modulesConfig = [];
 
 	/**
 	 * @var array custom cms (backend) modules config.
@@ -94,19 +95,11 @@ class Module extends BackendModule
 		$modules = [];
 		foreach (require(__DIR__ . '/config/modules.php') as $name => $module) {
 			if (class_exists($module))
-				$modules[$name] = $module;
+				$modules[$name] = array_merge(['class' => $module], ArrayHelper::getValue($this->modulesConfig, $name, []));
 		}
 
 		//add custom modules
 		$modules = array_merge($modules, $this->customModules);
-
-		//page count limit
-		if (array_key_exists('page', $modules)) {
-			$modules['page'] = [
-				'class' => $modules['page'],
-				'maxCount' => $this->maxPageCount,
-			];
-		}
 
 		//apply
 		$this->modules = $modules;
