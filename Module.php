@@ -5,8 +5,10 @@ namespace cms;
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\helpers\ArrayHelper;
+use yii\rbac\BaseManager;
 
 use cms\components\BackendModule;
+use cms\user\common\components\User;
 
 /**
  * Simple CMS main module
@@ -52,11 +54,29 @@ class Module extends BackendModule
 	{
 		parent::init();
 
-		$this->setApplicationSettings();
+		$this->checkConfig();
 		$this->checkModules();
+		$this->setApplicationSettings();
 		$this->checkPasswordChange();
 
 		$this->makeMenu();
+	}
+
+	/**
+	 * Check application configuration
+	 * @return type
+	 */
+	private function checkConfig()
+	{
+		//auth manager
+		$auth = Yii::$app->getAuthManager();
+		if (!($auth instanceof BaseManager))
+			throw new InvalidConfigException('You should to configure "authManager" application component inherited from yii\rbac\BaseManager class.');
+
+		//user application component
+		$user = Yii::$app->getUser();
+		if (!($user instanceof User))
+			throw new InvalidConfigException('You should to set "user" application component inherited from cms\user\common\components\User class.');
 	}
 
 	/**
