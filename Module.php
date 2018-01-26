@@ -82,7 +82,8 @@ class Module extends BackendModule
 		//login and password change
 		$user = Yii::$app->getUser();
 		$user->loginUrl = ['/' . $this->id . '/user/login/index'];
-		$user->passwordChangeUrl = ['' . $this->id . '/user/password/index'];
+		if ($user->hasProperty('passwordChangeUrl'))
+			$user->passwordChangeUrl = ['' . $this->id . '/user/password/index'];
 	}
 
 	/**
