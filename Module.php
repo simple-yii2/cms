@@ -156,7 +156,7 @@ class Module extends BackendModule
 		$base = '/' . $this->id;
 
 		$catalogItems = [];
-		$orderItems = [];
+		$purchaseItems = [];
 		$paymentItems = [];
 		$securityItems = [];
 
@@ -165,8 +165,8 @@ class Module extends BackendModule
 		foreach ($this->modules as $module) {
 			if ($module instanceof \cms\catalog\backend\Module) {
 				$catalogItems = $module->cmsMenu($base);
-			} elseif ($module instanceof \cms\order\backend\Module) {
-				$orderItems = $module->cmsMenu($base);
+			} elseif ($module instanceof \cms\purchase\backend\Module) {
+				$purchaseItems = $module->cmsMenu($base);
 			} elseif ($module instanceof \cms\payment\backend\Module) {
 				$paymentItems = $module->cmsMenu($base);
 			} elseif ($module instanceof \cms\user\backend\Module) {
@@ -205,7 +205,7 @@ class Module extends BackendModule
 			];
 		}
 
-		Yii::$app->params['menu'] = array_merge($modulesMenu, $catalogItems, $orderItems, $paymentItems, $securityItems);
+		Yii::$app->params['menu'] = array_merge($modulesMenu, $catalogItems, $purchaseItems, $paymentItems, $securityItems);
 		Yii::$app->params['menu-user'] = $this->getModule('user')->cmsUserMenu($base);
 	}
 

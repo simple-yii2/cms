@@ -6,7 +6,7 @@ return [
 	'contact' => 'cms\contact\backend\Module',
 	'news' => 'cms\news\backend\Module',
 	'catalog' => 'cms\catalog\backend\Module',
-	'order' => 'cms\order\backend\Module',
+	'purchase' => 'cms\purchase\backend\Module',
 	'gallery' => 'cms\gallery\backend\Module',
 	'review' => 'cms\review\backend\Module',
 	'feedback' => 'cms\feedback\backend\Module',
