@@ -180,7 +180,21 @@ class Module extends BackendModule
 		//removes separator from the beginning and end of the list
 		$isPrev = true;
 		foreach ($items as $key => $value) {
-			if (is_string($value)) {
+			if (!is_string($value)) {
+				$isPrev = false;
+				continue;
+			}
+
+			//divider and header
+			if ($value == '-') {
+				$items[$key] = $value = '<li class="divider"></li>';
+			}
+			if (mb_strpos($value, '<li') !== 0) {
+				$items[$key] = $value = '<li class="dropdown-header">' . $value . '</li>';
+			}
+
+			//duplicate
+			if ($value == '<li class="divider"></li>') {
 				if ($isPrev)
 					unset($items[$key]);
 				$isPrev = true;
