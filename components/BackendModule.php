@@ -56,11 +56,9 @@ class BackendModule extends BaseModule
 
 	/**
 	 * Making module menu for CMS
-	 * 
-	 * @param string $base base path for making url routes
 	 * @return array
 	 */
-	protected function cmsMenu($base)
+	protected function cmsMenu()
 	{
 		return [];
 	}

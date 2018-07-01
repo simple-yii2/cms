@@ -7,8 +7,9 @@ use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
-
 use cms\assets\AppAsset;
+use cms\widgets\ModulesMenu;
+use cms\helpers\ModulesMenuHelper;
 use dkhlystov\widgets\Alert;
 
 $asset = AppAsset::register($this);
@@ -31,16 +32,25 @@ $asset = AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => '',
+        'brandLabel' => false,
         // 'brandLabel' => Yii::t('cms', 'Content management system'),
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
+        'renderInnerContainer' => false,
     ]);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],
-        'items' => Yii::$app->params['menu'],
+        'items' => [
+            [
+                'label' => '<span></span><span></span><span></span>',
+                'options' => ['class' => 'cms-modules-menu-toggle'],
+                'encode' => false,
+                'dropDownOptions' => ['class' => 'cms-modules-menu'],
+                'items' => ModulesMenuHelper::prepareListItems(Yii::$app->params['menu-modules']),
+            ],
+        ],
     ]);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],

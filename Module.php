@@ -6,7 +6,6 @@ use Yii;
 use yii\base\InvalidConfigException;
 use yii\helpers\ArrayHelper;
 use yii\rbac\BaseManager;
-
 use cms\components\BackendModule;
 use cms\user\common\components\User;
 
@@ -16,211 +15,190 @@ use cms\user\common\components\User;
 class Module extends BackendModule
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public $layout = 'main';
+    /**
+     * @inheritdoc
+     */
+    public $layout = 'main';
 
-	/**
-	 * @var array Config that appling to backend modules
-	 */
-	public $modulesConfig = [];
+    /**
+     * @var array Config that appling to backend modules
+     */
+    public $modulesConfig = [];
 
-	/**
-	 * @var array custom cms (backend) modules config.
-	 */
-	public $customModules = [];
+    /**
+     * @var array custom cms (backend) modules config.
+     */
+    public $customModules = [];
 
-	/**
-	 * @inheritdoc
-	 */
-	public static function moduleName()
-	{
-		return 'cms';
-	}
+    /**
+     * @inheritdoc
+     */
+    public static function moduleName()
+    {
+        return 'cms';
+    }
 
-	/**
-	 * @inheritdoc
-	 */
-	protected static function getDirname()
-	{
-		return __DIR__;
-	}
+    /**
+     * @inheritdoc
+     */
+    protected static function getDirname()
+    {
+        return __DIR__;
+    }
 
-	/**
-	 * @inheritdoc
-	 */
-	public function init()
-	{
-		parent::init();
+    /**
+     * @inheritdoc
+     */
+    public function init()
+    {
+        parent::init();
 
-		$this->checkConfig();
-		$this->checkModules();
-		$this->setApplicationSettings();
-		$this->checkPasswordChange();
+        $this->checkConfig();
+        $this->checkModules();
+        $this->setApplicationSettings();
+        $this->checkPasswordChange();
 
-		$this->makeMenu();
-	}
+        $this->makeMenu();
+    }
 
-	/**
-	 * Check application configuration
-	 * @return type
-	 */
-	private function checkConfig()
-	{
-		//auth manager
-		$auth = Yii::$app->getAuthManager();
-		if (!($auth instanceof BaseManager))
-			throw new InvalidConfigException('You should to configure "authManager" application component inherited from yii\rbac\BaseManager class.');
+    /**
+     * Check application configuration
+     * @return type
+     */
+    private function checkConfig()
+    {
+        //auth manager
+        $auth = Yii::$app->getAuthManager();
+        if (!($auth instanceof BaseManager))
+            throw new InvalidConfigException('You should to configure "authManager" application component inherited from yii\rbac\BaseManager class.');
 
-		//user application component
-		$user = Yii::$app->getUser();
-		if (!($user instanceof User))
-			throw new InvalidConfigException('You should to set "user" application component inherited from cms\user\common\components\User class.');
-	}
+        //user application component
+        $user = Yii::$app->getUser();
+        if (!($user instanceof User))
+            throw new InvalidConfigException('You should to set "user" application component inherited from cms\user\common\components\User class.');
+    }
 
-	/**
-	 * Change application settings
-	 * @return void
-	 */
-	private function setApplicationSettings()
-	{
-		$app = Yii::$app;
+    /**
+     * Change application settings
+     * @return void
+     */
+    private function setApplicationSettings()
+    {
+        $app = Yii::$app;
 
-		//application name
-		$app->name = 'simple-yii2/cms';
+        //application name
+        $app->name = 'simple-yii2/cms';
 
-		//application home url
-		$app->homeUrl = ['/' . $this->id . '/default/index'];
+        //application home url
+        $app->homeUrl = ['/' . $this->id . '/default/index'];
 
-		//original bootstrap theme
-		$app->assetManager->bundles['yii\bootstrap\BootstrapAsset']['sourcePath'] = '@bower/bootstrap/dist';
+        //original bootstrap theme
+        $app->assetManager->bundles['yii\bootstrap\BootstrapAsset']['sourcePath'] = '@bower/bootstrap/dist';
 
-		//error page
-		$app->errorHandler->errorAction = '/' . $this->id . '/default/error';
+        //error page
+        $app->errorHandler->errorAction = '/' . $this->id . '/default/error';
 
-		//login and password change
-		$user = Yii::$app->getUser();
-		$user->loginUrl = ['/' . $this->id . '/user/login/index'];
-		if ($user->hasProperty('passwordChangeUrl'))
-			$user->passwordChangeUrl = ['' . $this->id . '/user/password/index'];
-	}
+        //login and password change
+        $user = Yii::$app->getUser();
+        $user->loginUrl = ['/' . $this->id . '/user/login/index'];
+        if ($user->hasProperty('passwordChangeUrl'))
+            $user->passwordChangeUrl = ['' . $this->id . '/user/password/index'];
+    }
 
-	/**
-	 * Check modules, that may be used in CMS
-	 * @return void
-	 */
-	protected function checkModules()
-	{
-		//add exists modules
-		$modules = [];
-		foreach (require(__DIR__ . '/config/modules.php') as $name => $module) {
-			if (class_exists($module))
-				$modules[$name] = array_merge(['class' => $module], ArrayHelper::getValue($this->modulesConfig, $name, []));
-		}
+    /**
+     * Check modules, that may be used in CMS
+     * @return void
+     */
+    protected function checkModules()
+    {
+        $modules = [];
 
-		//add custom modules
-		$modules = array_merge($modules, $this->customModules);
+        //add custom modules
+        $modules = array_merge($modules, $this->customModules);
 
-		//apply
-		$this->modules = $modules;
+        //add exists modules
+        foreach (require(__DIR__ . '/config/modules.php') as $name => $module) {
+            if (class_exists($module))
+                $modules[$name] = array_merge(['class' => $module], ArrayHelper::getValue($this->modulesConfig, $name, []));
+        }
 
-		//init user module
-		if ($this->getModule('user') === null)
-			throw new InvalidConfigException('Module `user` not found.');
+        //apply
+        $this->modules = $modules;
 
-		//init other modules to prepare data
-		foreach (array_keys($modules) as $name) {
-			$this->getModule($name);
-		}
-	}
+        //init user module
+        if ($this->getModule('user') === null)
+            throw new InvalidConfigException('Module `user` not found.');
 
-	/**
-	 * Checking if user needs to change password
-	 * @return void
-	 */
-	private function checkPasswordChange()
-	{
-		$user = Yii::$app->getUser();
-		if (!$user->getIsGuest() && $user->getIdentity()->passwordChange && $user->passwordChangeRequired())
-			Yii::$app->end();
-	}
+        //init other modules to prepare data
+        foreach (array_keys($modules) as $name) {
+            $this->getModule($name);
+        }
+    }
 
-	/**
-	 * Building main menu
-	 * @return void
-	 */
-	protected function makeMenu()
-	{
-		//base path for routes
-		$base = '/' . $this->id;
+    /**
+     * Checking if user needs to change password
+     * @return void
+     */
+    private function checkPasswordChange()
+    {
+        $user = Yii::$app->getUser();
+        if (!$user->getIsGuest() && $user->getIdentity()->passwordChange && $user->passwordChangeRequired())
+            Yii::$app->end();
+    }
 
-		$catalogItems = [];
-		$purchaseItems = [];
-		$paymentItems = [];
-		$securityItems = [];
+    /**
+     * Building menus
+     * @return void
+     */
+    protected function makeMenu()
+    {
+        //base path for routes
+        $base = '/' . $this->id;
 
-		//modules items
-		$items = [];
-		foreach ($this->modules as $module) {
-			if ($module instanceof \cms\catalog\backend\Module) {
-				$catalogItems = $module->cmsMenu($base);
-			} elseif ($module instanceof \cms\purchase\backend\Module) {
-				$purchaseItems = $module->cmsMenu($base);
-			} elseif ($module instanceof \cms\payment\backend\Module) {
-				$paymentItems = $module->cmsMenu($base);
-			} elseif ($module instanceof \cms\user\backend\Module) {
-				$securityItems = $module->cmsMenu($base);
-			} elseif ($module instanceof \cms\components\BackendModule) {
-				$items = array_merge($items, $module->cmsMenu($base));
-			}
-		}
+        //modules menu
+        $items = [];
+        foreach ($this->modules as $module) {
+            if ($module instanceof BackendModule) {
+                $item = $module->cmsMenu();
+                if (!empty($item)) {
+                    $items[] = $item;
+                }
+            }
+        }
 
-		//removes duplicate separators
-		//removes separator from the beginning and end of the list
-		$isPrev = true;
-		foreach ($items as $key => $value) {
-			if (!is_string($value)) {
-				$isPrev = false;
-				continue;
-			}
+        //cms menus
+        Yii::$app->params['menu-modules'] = $this->normalizeItems($items);
+        Yii::$app->params['menu-user'] = $this->normalizeItems($this->getModule('user')->cmsUserMenu());
+    }
 
-			//divider and header
-			if ($value == '-') {
-				$items[$key] = $value = '<li class="divider"></li>';
-			}
-			if (mb_strpos($value, '<li') !== 0) {
-				$items[$key] = $value = '<li class="dropdown-header">' . $value . '</li>';
-			}
+    /**
+     * Normalize menu items (url route)
+     * @param array $items 
+     * @return array
+     */
+    protected function normalizeItems($items)
+    {
+        //base route
+        $base = '/' . $this->id;
 
-			//duplicate
-			if ($value == '<li class="divider"></li>') {
-				if ($isPrev)
-					unset($items[$key]);
-				$isPrev = true;
-			} else {
-				$isPrev = false;
-			}
-		}
-		if (!empty($items)) {
-			$key = end((array_keys($items)));
-			if (is_string($items[$key]))
-				unset($items[$key]);
-		}
-
-		//modules menu
-		$modulesMenu = [];
-		if (!empty($items)) {
-			$modulesMenu = [
-				[
-					'label' => Yii::t('cms', 'Modules'),
-					'items' => $items,
-				],
-			];
-		}
-
-		Yii::$app->params['menu'] = array_merge($modulesMenu, $catalogItems, $purchaseItems, $paymentItems, $securityItems);
-		Yii::$app->params['menu-user'] = $this->getModule('user')->cmsUserMenu($base);
-	}
+        //process items
+        foreach ($items as $key => $item) {
+            //url
+            $route = ArrayHelper::getValue($item, ['url', 0]);
+            if ($route !== null) {
+                if ($route[0] != '/') {
+                    $route = '/' . $route;
+                }
+                $item['url'][0] = $base . $route;
+            }
+            //normolize children items
+            if (isset($item['items'])) {
+                $item['items'] = $this->normalizeItems($item['items']);
+            }
+            //set normalized item
+            $items[$key] = $item;
+        }
+        return $items;
+    }
 
 }
