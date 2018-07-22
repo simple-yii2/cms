@@ -1,6 +1,7 @@
 <?php
 
 return [
+	'block' => 'cms\block\backend\Module',
 	'menu' => 'cms\menu\backend\Module',
 	'page' => 'cms\page\backend\Module',
 	'contact' => 'cms\contact\backend\Module',
@@ -10,7 +11,6 @@ return [
 	'gallery' => 'cms\gallery\backend\Module',
 	'review' => 'cms\review\backend\Module',
 	'feedback' => 'cms\feedback\backend\Module',
-	'block' => 'cms\block\backend\Module',
 	'slider' => 'cms\slider\backend\Module',
 	'seo' => 'cms\seo\backend\Module',
 	'settings' => 'cms\settings\backend\Module',

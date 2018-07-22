@@ -12,9 +12,14 @@ class AppAsset extends AssetBundle
         'controls.css',
     ];
 
+    public $js = [
+        'site.js',
+    ];
+
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
+        'yii\web\JqueryAsset',
     ];
 
     public function init()

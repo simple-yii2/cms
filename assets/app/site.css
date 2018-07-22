@@ -92,7 +92,209 @@ a.desc:after {
 
 
 
+
+
+/* navbar header on mobile */
+.navbar-header {
+    float: left;
+}
+.navbar-toggle {
+    display: none;
+}
+.navbar-nav {
+    float: left;
+    margin: 0;
+}
+.navbar-nav > li > a {
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+.navbar-right {
+    float: right;
+}
+.navbar-nav .open .dropdown-menu {
+    background-color: #222;
+    position: absolute;
+}
+@media (min-width: 768px) {
+    .navbar-nav .open .dropdown-menu {
+        background-color: #fff;
+    }
+}
+.navbar-right .open .dropdown-menu {
+    left: auto;
+    right: 0;
+}
+.navbar-collapse {
+    display: block;
+    height: auto;
+    padding-bottom: 0;
+    overflow: visible;
+
+    padding-left: 0;
+    padding-right: 0;
+
+    width: auto;
+    border-top: 0;
+    box-shadow: none;
+}
+
+
+
+
+
+/* user name*/
+@media (max-width: 767px) {
+    .cms-username {
+        display: none;
+    }
+}
+
+
+
+
+
+/* menu toggle button */
+.cms-modules-menu-toggle {
+    height: 50px;
+    margin: 0;
+    padding: 9px;
+    width: 55px;
+}
+li.cms-modules-menu-toggle > a {
+    border: 1px solid #333;
+    border-radius: 4px;
+    height: 32px;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    width: 37px;
+}
+.cms-modules-menu-toggle > a .caret {
+    display: none;
+}
+.cms-modules-menu-toggle > a > span {
+    background-color: #9d9d9d;
+    display: block;
+    height: 2px;
+    left: 7px;
+    right: 7px;
+    position: absolute;
+}
+.cms-modules-menu-toggle > a > span:nth-child(1) {
+    top: 8px;
+}
+.cms-modules-menu-toggle > a > span:nth-child(2) {
+    top: 14px;
+}
+.cms-modules-menu-toggle > a > span:nth-child(3) {
+    top: 20px;
+}
+.cms-modules-menu-toggle.open > a,
+.cms-modules-menu-toggle > a:hover {
+    background-color: #333 !important;
+    border-color: #333 !important;
+}
+.cms-modules-menu-toggle.open > a > span,
+.cms-modules-menu-toggle > a:hover > span {
+    background-color: #fff;
+}
+
+
+
+
+
+/* modules menu */
+.cms-modules-menu {
+    background-color: #222 !important;
+    border-color: #101010;
+    bottom: 0;
+    display: block !important;
+    left: -100%;
+    overflow: auto;
+    position: fixed !important;
+    top: 50px;
+    transition: left 0.2s;
+    width: 100% !important;
+    z-index: 1;
+
+    color: #9d9d9d;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.cms-modules-menu > li {
+    border-bottom: 1px solid #101010;
+}
+.cms-modules-menu li > a {
+    background-color: transparent !important;
+    color: #9d9d9d !important;
+    display: block;
+    font-weight: normal;
+    line-height: 20px !important;
+    padding: 10px 15px !important;
+    text-decoration: none !important;
+    white-space: nowrap;
+}
+.cms-modules-menu li.subitems > a:after {
+    content: '';
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 10px;
+    vertical-align: middle;
+    border-top: 4px solid;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    transition: transform 0.2s;
+}
+.cms-modules-menu-toggle.open .cms-modules-menu {
+    left: 0;
+}
+@media (min-width: 768px) {
+    .cms-modules-menu {
+        left: -300px;
+        width: 300px !important;
+    }
+}
+.cms-modules-menu li.subitems > ul {
+    height: 0;
+    list-style: none;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+}
+.cms-modules-menu li.subitems > ul > li > a {
+    padding: 10px 15px 10px 50px !important;
+}
+.cms-modules-menu li.subitems.open > a,
+.cms-modules-menu li.subitems.open > a:hover,
+.cms-modules-menu li.subitems.open > a:focus {
+    background-color: inherit;
+}
+.cms-modules-menu li.subitems.open > ul {
+    height: auto;
+    overflow: inherit;
+}
+.cms-modules-menu li.subitems.open > a:after {
+    transform: rotate(180deg);
+}
+.cms-modules-menu li > a:hover,
+.cms-modules-menu li > a:focus,
+.cms-modules-menu li.active > a {
+    color: #fff !important;
+}
+.cms-modules-menu li.active > a {
+    background-color: #080808 !important;
+}
+
+
+
+
+
+
+
 a.navbar-brand {
     background: url('logo.png') no-repeat 15px center;
-    padding-left: 55px;
+    padding-left: 40px;
 }
