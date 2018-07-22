@@ -5,6 +5,7 @@ namespace cms\components;
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\base\Module;
+use yii\helpers\ArrayHelper;
 
 /**
  * Base CMS module
@@ -14,57 +15,64 @@ use yii\base\Module;
 class BaseModule extends Module
 {
 
-	/**
-	 * Return module name that uses for translation adding
-	 * @return string
-	 */
-	public static function moduleName()
-	{
-		throw new InvalidConfigException('The function "moduleName" is not defined in "' . static::className() . '".');
-	}
+    /**
+     * Return module name that uses for translation adding
+     * @return string
+     */
+    public static function moduleName()
+    {
+        $className = static::className();
 
-	/**
-	 * @inheritdoc
-	 */
-	public function init()
-	{
-		parent::init();
+        $name = ArrayHelper::getValue(array_reverse(explode('\\', $className)), 2);
+        if ($name === null) {
+            throw new InvalidConfigException('The function "moduleName" is not defined in "' . $className . '".');
+        }
 
-		static::cmsTranslation();
-	}
+        return $name;
+    }
 
-	/**
-	 * Current dirname getter
-	 * @return string
-	 */
-	protected static function getDirname()
-	{
-		$class = new \ReflectionClass(static::className());
-		return dirname(dirname($class->getFileName()));
-	}
+    /**
+     * @inheritdoc
+     */
+    public function init()
+    {
+        parent::init();
 
-	/**
-	 * Adding translation to i18n
-	 * 
-	 * Translation is placed in [[/moduleName/messages]] directory
-	 * @see yii\i18n\PhpMessageSource
-	 * 
-	 * @return void
-	 */
-	public static function cmsTranslation()
-	{
-		$name = static::moduleName();
-		if (empty($name))
-			return;
+        static::cmsTranslation();
+    }
 
-		if (isset(Yii::$app->i18n->translations[$name]))
-			return;
+    /**
+     * Current dirname getter
+     * @return string
+     */
+    protected static function getDirname()
+    {
+        $class = new \ReflectionClass(static::className());
+        return dirname(dirname($class->getFileName()));
+    }
 
-		Yii::$app->i18n->translations[$name] = [
-			'class' => 'yii\i18n\PhpMessageSource',
-			'sourceLanguage' => 'en-US',
-			'basePath' => static::getDirname() . '/messages',
-		];
-	}
+    /**
+     * Adding translation to i18n
+     * 
+     * Translation is placed in [[/moduleName/messages]] directory
+     * @see yii\i18n\PhpMessageSource
+     * 
+     * @return void
+     */
+    public static function cmsTranslation()
+    {
+        $name = static::moduleName();
+        if (empty($name))
+            return;
+
+        if (isset(Yii::$app->i18n->translations[$name]))
+            return;
+
+        Yii::$app->i18n->translations[$name] = [
+            'class' => 'yii\i18n\PhpMessageSource',
+            'sourceLanguage' => 'en-US',
+            'basePath' => static::getDirname() . '/messages',
+        ];
+    }
 
 }

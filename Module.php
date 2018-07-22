@@ -33,6 +33,21 @@ class Module extends BackendModule
     /**
      * @inheritdoc
      */
+    public function init()
+    {
+        parent::init();
+
+        $this->checkConfig();
+        $this->checkModules();
+        $this->setApplicationSettings();
+        $this->checkPasswordChange();
+
+        $this->makeMenu();
+    }
+
+    /**
+     * @inheritdoc
+     */
     public static function moduleName()
     {
         return 'cms';
@@ -47,21 +62,6 @@ class Module extends BackendModule
     }
 
     /**
-     * @inheritdoc
-     */
-    public function init()
-    {
-        parent::init();
-
-        $this->checkConfig();
-        $this->checkModules();
-        $this->setApplicationSettings();
-        $this->checkPasswordChange();
-
-        $this->makeMenu();
-    }
-
-    /**
      * Check application configuration
      * @return type
      */
@@ -69,13 +69,15 @@ class Module extends BackendModule
     {
         //auth manager
         $auth = Yii::$app->getAuthManager();
-        if (!($auth instanceof BaseManager))
+        if (!($auth instanceof BaseManager)) {
             throw new InvalidConfigException('You should to configure "authManager" application component inherited from yii\rbac\BaseManager class.');
+        }
 
         //user application component
         $user = Yii::$app->getUser();
-        if (!($user instanceof User))
+        if (!($user instanceof User)) {
             throw new InvalidConfigException('You should to set "user" application component inherited from cms\user\common\components\User class.');
+        }
     }
 
     /**
@@ -101,8 +103,9 @@ class Module extends BackendModule
         //login and password change
         $user = Yii::$app->getUser();
         $user->loginUrl = ['/' . $this->id . '/user/login/index'];
-        if ($user->hasProperty('passwordChangeUrl'))
+        if ($user->hasProperty('passwordChangeUrl')) {
             $user->passwordChangeUrl = ['' . $this->id . '/user/password/index'];
+        }
     }
 
     /**
@@ -118,16 +121,18 @@ class Module extends BackendModule
 
         //add exists modules
         foreach (require(__DIR__ . '/config/modules.php') as $name => $module) {
-            if (class_exists($module))
+            if (class_exists($module)) {
                 $modules[$name] = array_merge(['class' => $module], ArrayHelper::getValue($this->modulesConfig, $name, []));
+            }
         }
 
         //apply
         $this->modules = $modules;
 
         //init user module
-        if ($this->getModule('user') === null)
+        if ($this->getModule('user') === null) {
             throw new InvalidConfigException('Module `user` not found.');
+        }
 
         //init other modules to prepare data
         foreach (array_keys($modules) as $name) {
@@ -142,8 +147,9 @@ class Module extends BackendModule
     private function checkPasswordChange()
     {
         $user = Yii::$app->getUser();
-        if (!$user->getIsGuest() && $user->getIdentity()->passwordChange && $user->passwordChangeRequired())
+        if (!$user->getIsGuest() && $user->getIdentity()->passwordChange && $user->passwordChangeRequired()) {
             Yii::$app->end();
+        }
     }
 
     /**
