@@ -13,4 +13,6 @@ return [
     'Changes saved successfully.' => 'Изменения успешно сохранены.',
     'Item not found.' => 'Объект не найден.',
     'Item deleted successfully.' => 'Объект успешно удален.',
+    'Error occurred while image uploading.' => 'Во время загрузки изображения произошла ошибка.',
+    'Error occurred while file uploading.' => 'Во время загрузки файла произошла ошибка.',
 ];
