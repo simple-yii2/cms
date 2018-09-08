@@ -9,7 +9,13 @@ return [
     'Create' => 'Добавить',
     'Cancel' => 'Отмена',
     'Save' => 'Сохранить',
+    'Add' => 'Добавить',
+    'Remove' => 'Удалить',
 
+
+
+
+    'Operation not permitted.' => 'Операция недопустима.',
     'Changes saved successfully.' => 'Изменения успешно сохранены.',
     'Item not found.' => 'Объект не найден.',
     'Item deleted successfully.' => 'Объект успешно удален.',
