@@ -33,7 +33,6 @@ $asset = AppAsset::register($this);
     <?php
     NavBar::begin([
         'brandLabel' => false,
-        // 'brandLabel' => Yii::t('cms', 'Content management system'),
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
@@ -44,7 +43,7 @@ $asset = AppAsset::register($this);
         'options' => ['class' => 'navbar-nav'],
         'items' => [
             [
-                'label' => '<span></span><span></span><span></span>',
+                'label' => '<span class="bars"><span></span><span></span><span></span></span><span class="title">' . Html::encode(Yii::t('cms', 'Modules')) . '</span>',
                 'options' => ['class' => 'cms-modules-menu-toggle'],
                 'encode' => false,
                 'dropDownOptions' => ['class' => 'cms-modules-menu'],

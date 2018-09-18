@@ -159,21 +159,24 @@ a.desc:after {
     height: 50px;
     margin: 0;
     padding: 9px;
-    width: 55px;
+    /*width: 55px;*/
 }
 li.cms-modules-menu-toggle > a {
-    border: 1px solid #333;
-    border-radius: 4px;
     height: 32px;
     margin: 0;
     padding: 0;
+}
+li.cms-modules-menu-toggle .bars {
+    border: 1px solid #333;
+    border-radius: 4px;
+    display: inline-block;
+    height: 32px;
+    margin-right: 8px;
     position: relative;
+    vertical-align: middle;
     width: 37px;
 }
-.cms-modules-menu-toggle > a .caret {
-    display: none;
-}
-.cms-modules-menu-toggle > a > span {
+.cms-modules-menu-toggle .bars > span {
     background-color: #9d9d9d;
     display: block;
     height: 2px;
@@ -181,22 +184,31 @@ li.cms-modules-menu-toggle > a {
     right: 7px;
     position: absolute;
 }
-.cms-modules-menu-toggle > a > span:nth-child(1) {
+.cms-modules-menu-toggle .bars > span:nth-child(1) {
     top: 8px;
 }
-.cms-modules-menu-toggle > a > span:nth-child(2) {
+.cms-modules-menu-toggle .bars > span:nth-child(2) {
     top: 14px;
 }
-.cms-modules-menu-toggle > a > span:nth-child(3) {
+.cms-modules-menu-toggle .bars > span:nth-child(3) {
     top: 20px;
 }
-.cms-modules-menu-toggle.open > a,
-.cms-modules-menu-toggle > a:hover {
+li.cms-modules-menu-toggle .title {
+    vertical-align: middle;
+}
+.cms-modules-menu-toggle > a .caret {
+    display: none;
+}
+.cms-modules-menu-toggle.open > a {
+    background-color: inherit !important;
+}
+.cms-modules-menu-toggle.open > a > .bars,
+.cms-modules-menu-toggle > a:hover > .bars {
     background-color: #333 !important;
     border-color: #333 !important;
 }
-.cms-modules-menu-toggle.open > a > span,
-.cms-modules-menu-toggle > a:hover > span {
+.cms-modules-menu-toggle.open > a > .bars > span,
+.cms-modules-menu-toggle > a:hover > .bars > span {
     background-color: #fff;
 }
 
