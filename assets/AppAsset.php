@@ -8,12 +8,12 @@ class AppAsset extends AssetBundle
 {
 
     public $css = [
-        'site.css',
-        'controls.css',
+        'site' . (YII_DEBUG ? '' : '.min') . '.css',
+        'controls' . (YII_DEBUG ? '' : '.min') . '.css',
     ];
 
     public $js = [
-        'site.js',
+        'site' . (YII_DEBUG ? '' : '.min') . '.js',
     ];
 
     public $depends = [
@@ -24,7 +24,7 @@ class AppAsset extends AssetBundle
 
     public function init()
     {
-    	$this->sourcePath = __DIR__ . '/app';
+        $this->sourcePath = __DIR__ . '/app';
     }
 
 }
