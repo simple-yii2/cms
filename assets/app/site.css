@@ -304,9 +304,33 @@ li.cms-modules-menu-toggle .title {
 
 
 
+.login-form {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 360px;
+}
+.login-form .panel-heading h4 {
+    font-weight: bold;
+    margin: 5px 0;
+}
+.login-form .row > div {
+    margin-bottom: 10px;
+}
+.login-form .row > div:last-child {
+    margin-bottom: 0;
+}
+.login-form .login-button {
+    text-align: center;
+}
+.login-form .login-button button {
+    min-width: 100px;
+}
 
 
-a.navbar-brand {
-    background: url('logo.png') no-repeat 15px center;
-    padding-left: 40px;
+
+
+
+.powered-by {
+    height: 26px;
+    margin: -3px 0;
 }

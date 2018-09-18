@@ -88,9 +88,6 @@ class Module extends BackendModule
     {
         $app = Yii::$app;
 
-        //application name
-        $app->name = 'simple-yii2/cms';
-
         //application home url
         $app->homeUrl = ['/' . $this->id . '/default/index'];
 
@@ -102,7 +99,7 @@ class Module extends BackendModule
 
         //login and password change
         $user = Yii::$app->getUser();
-        $user->loginUrl = ['/' . $this->id . '/user/login/index'];
+        $user->loginUrl = ['/' . $this->id . '/login/index'];
         if ($user->hasProperty('passwordChangeUrl')) {
             $user->passwordChangeUrl = ['' . $this->id . '/user/password/index'];
         }
@@ -147,8 +144,8 @@ class Module extends BackendModule
     private function checkPasswordChange()
     {
         //logout
-        $route = Yii::$app->getRequest()->resolve()[0];
-        if ($route == 'cms/user/logout/index') {
+        $route = '/' . Yii::$app->getRequest()->resolve()[0];
+        if ($route == Yii::$app->getUser()->loginUrl[0]) {
             return;
         }
 

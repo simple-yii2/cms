@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\Breadcrumbs;
 use cms\assets\AppAsset;
 use dkhlystov\widgets\Alert;
 
@@ -23,23 +22,11 @@ $asset = AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <div class="wrap">
-    <?= $this->render('header') ?>
     <div class="container">
-        <?= Breadcrumbs::widget([
-            'homeLink' => false,
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
         <?= Alert::widget() ?>
         <?= $content ?>
     </div>
 </div>
-
-<footer class="footer">
-    <div class="container-fluid">
-        <p class="pull-left">&copy; simple-yii2/cms</p>
-        <p class="pull-right">Powered by <?= Html::img($asset->baseUrl . '/powered.png', ['class' => 'powered-by']) ?></p>
-    </div>
-</footer>
 
 <?php $this->endBody() ?>
 </body>
