@@ -50,6 +50,11 @@
 }
 
 
+.modal-header h2 {
+    margin: 0;
+}
+
+
 .ui-widget {
     font-family: inherit;
 }
