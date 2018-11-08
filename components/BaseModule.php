@@ -62,11 +62,13 @@ class BaseModule extends Module
     public static function cmsTranslation()
     {
         $name = static::moduleName();
-        if (empty($name))
+        if (empty($name)) {
             return;
+        }
 
-        if (isset(Yii::$app->i18n->translations[$name]))
+        if (isset(Yii::$app->i18n->translations[$name])) {
             return;
+        }
 
         Yii::$app->i18n->translations[$name] = [
             'class' => 'yii\i18n\PhpMessageSource',
